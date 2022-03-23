@@ -9,6 +9,11 @@ const userVerificationTokenSchema = new Schema({
     type: String,
     required: true,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    expires: 60 * 60,
+  },
 });
 
 module.exports = model('UserVerificationToken', userVerificationTokenSchema);
