@@ -1,6 +1,9 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const sgMail = require('@sendgrid/mail');
+
+sgMail.setApiKey(process.env.SENGRID_API_KEY);
 
 module.exports = {
   async hashPassword(password) {
@@ -17,11 +20,21 @@ module.exports = {
     return accessToken;
   },
   createRefreshToken(payload) {
-    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_KEY, { expiresIn: 30 * 60 }); // 30 mins
+    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_KEY, { expiresIn: 60 * 60 }); // 60 mins
     return refreshToken;
+  },
+  createVerifyToken(payload) {
+    const verifyToken = jwt.sign(payload, process.env.VERIFICATION_TOKEN_KEY, {
+      expiresIn: 60 * 60,
+    }); // 60 mins
+    return verifyToken;
   },
   async checkUserExist(fieldName, value) {
     const user = await User.findOne({ [fieldName]: value });
     return { val: !!user, user };
+  },
+  // {to, from, subject, text, html }
+  async sendMail(message) {
+    return sgMail.send(message);
   },
 };

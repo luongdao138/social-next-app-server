@@ -6,7 +6,6 @@ const userSchema = new Schema({
     required: true,
     trim: true,
     maxlength: 25,
-    unique: true,
   },
   fullname: {
     type: String,
@@ -18,7 +17,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true,
   },
   password: {
     type: String,
@@ -58,6 +56,10 @@ const userSchema = new Schema({
   },
   followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  verified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = model('User', userSchema);

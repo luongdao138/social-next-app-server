@@ -10,6 +10,7 @@ const errorHandlerMiddleware = require('./middlewares/errorHandlerMiddleware');
 
 // routes import
 const authRouter = require('./routes/auth.routes');
+const userRouter = require('./routes/user.routes');
 
 app.use(express.json());
 app.use(
@@ -22,6 +23,7 @@ connectDb();
 
 // routes middlewares
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/user', userRouter);
 
 // error hander
 app.use(notFoundMiddleware);
