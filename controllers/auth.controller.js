@@ -6,7 +6,6 @@ const {
   hashPassword,
   validatePassword,
   createRefreshToken,
-  createVerifyToken,
   sendMail,
 } = require('../utils/authHelpers');
 const User = require('../models/User');

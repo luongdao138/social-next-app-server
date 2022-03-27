@@ -20,7 +20,9 @@ module.exports = {
     return accessToken;
   },
   createRefreshToken(payload) {
-    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_KEY, { expiresIn: 60 * 60 }); // 60 mins
+    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_KEY, {
+      expiresIn: '1d',
+    }); // 1 day
     return refreshToken;
   },
   createVerifyToken(payload) {

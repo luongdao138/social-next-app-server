@@ -19,7 +19,13 @@ const registerSchema = joi.object({
   gender: joi.string().required(),
 });
 
+const updateUserProfileSchema = joi.object({
+  fullname: joi.string().max(25).required(),
+  story: joi.string().max(200),
+});
+
 module.exports = {
   loginSchema,
   registerSchema,
+  updateUserProfileSchema,
 };

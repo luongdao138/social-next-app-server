@@ -14,7 +14,8 @@ const authMiddleware = async (req, res, next) => {
       return res.status(StatusCodes.UNAUTHORIZED).json({ msg: 'Invalid access token' });
     }
 
-    req.user = user;
+    delete user._doc.password;
+    req.user = { ...user._doc };
     next();
   } catch (error) {
     return res.status(StatusCodes.UNAUTHORIZED).json({ msg: 'Invalid access token' });
